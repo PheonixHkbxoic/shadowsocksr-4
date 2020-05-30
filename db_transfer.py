@@ -437,7 +437,7 @@ class Dbv3Transfer(DbTransfer):
 				self.ss_node_info_name = 'ss_node_info'
 			if get_config().API_INTERFACE == 'ssrpanel':
 				self.key_list += ['obfs', 'protocol']
-				self.ss_node_info_name = 'node_info'
+				self.ss_node_info_name = 'node_heartbeat'
 		else:
 			self.key_list += ['obfs', 'protocol']
 		self.start_time = time.time()
