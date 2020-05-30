@@ -437,7 +437,7 @@ class Dbv3Transfer(DbTransfer):
 				self.ss_node_info_name = 'ss_node_info'
 			if get_config().API_INTERFACE == 'ssrpanel':
 				self.key_list += ['obfs', 'protocol']
-				self.ss_node_info_name = 'ss_node_info'
+				self.ss_node_info_name = 'node_info'
 		else:
 			self.key_list += ['obfs', 'protocol']
 		self.start_time = time.time()
@@ -514,7 +514,7 @@ class Dbv3Transfer(DbTransfer):
 			try:
 				cur = conn.cursor()
 				try:
-					cur.execute("INSERT INTO `ss_node_online_log` (`id`, `node_id`, `online_user`, `log_time`) VALUES (NULL, '" + \
+					cur.execute("INSERT INTO `node_online_log` (`id`, `node_id`, `online_user`, `log_time`) VALUES (NULL, '" + \
 						str(self.cfg["node_id"]) + "', '" + str(alive_user_count) + "', unix_timestamp()); ")
 				except Exception as e:
 					logging.error(e)
@@ -529,7 +529,7 @@ class Dbv3Transfer(DbTransfer):
 					logging.error(e)
 				cur.close()
 			except:
-				logging.warn('no `ss_node_online_log` or `" + self.ss_node_info_name + "` in db')
+				logging.warn('no `node_online_log` or `" + self.ss_node_info_name + "` in db')
 
 		conn.close()
 		return update_transfer
@@ -552,7 +552,7 @@ class Dbv3Transfer(DbTransfer):
 		if self.update_node_state:
 			node_info_keys = ['traffic_rate']
 			try:
-				cur.execute("SELECT " + ','.join(node_info_keys) +" FROM ss_node where `id`='" + str(self.cfg["node_id"]) + "'")
+				cur.execute("SELECT " + ','.join(node_info_keys) +" FROM node where `id`='" + str(self.cfg["node_id"]) + "'")
 				nodeinfo = cur.fetchone()
 			except Exception as e:
 				logging.error(e)
